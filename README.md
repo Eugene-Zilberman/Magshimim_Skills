@@ -117,3 +117,103 @@ ai-skills/
 ---
 
 Скиллы протестированы на Claude Sonnet и GPT-4o, если не указано иное. Результаты могут отличаться в зависимости от версии модели. Любые контрибьюции приветствуются. Цель репозитория - общая библиотека, которая экономит время всем.
+
+## Инструкция по работе через partial clone и sparse-checkout
+
+Этот режим удобен, если репозиторий большой, а разработчику нужна только конкретная часть проекта.
+
+### 1. Клонировать репозиторий без полной загрузки всех файлов
+
+```bash
+git clone --filter=blob:none --sparse <repo_url>
+cd <repo_name>
+```
+
+Что делает эта команда:
+- `--filter=blob:none` не загружает содержимое всех файлов сразу
+- `--sparse` включает sparse checkout
+
+### 2. Указать, с какими папками нужно работать
+
+```bash
+git sparse-checkout set skills docs examples
+```
+
+После этого в рабочем дереве будут доступны в основном только указанные директории.
+
+### 3. Создать отдельную ветку под задачу
+
+```bash
+git checkout -b feature/update-skill
+```
+
+### 4. Внести изменения и сохранить их
+
+```bash
+git add .
+git commit -m "Update skill documentation"
+git push -u origin feature/update-skill
+```
+
+### 5. Создать Pull Request в `main`
+
+После push ветки нужно открыть Pull Request и влить изменения в `main` только через review.
+
+---
+
+## Полный пример
+
+```bash
+git clone --filter=blob:none --sparse <repo_url>
+cd <repo_name>
+git sparse-checkout set skills docs examples
+git checkout -b feature/update-skill
+# вносим изменения
+git add .
+git commit -m "Update skill documentation"
+git push -u origin feature/update-skill
+```
+
+---
+
+## Полезные команды для sparse-checkout
+
+### Добавить еще одну папку
+
+```bash
+git sparse-checkout add templates
+```
+
+### Посмотреть текущий список путей
+
+```bash
+git sparse-checkout list
+```
+
+### Вернуться к полному рабочему дереву
+
+```bash
+git sparse-checkout disable
+```
+
+---
+
+## Когда использовать partial clone и sparse-checkout
+
+Используй этот подход, если:
+- репозиторий большой
+- разработчик работает только с одной частью проекта
+- не нужно держать весь проект локально
+
+Если проект маленький, обычно достаточно обычного `git clone` и работы через отдельную ветку.
+
+---
+
+## Рекомендуемые правила команды
+
+- не работать напрямую в `main`
+- всегда создавать отдельную ветку под задачу
+- отправлять изменения только через Pull Request
+- использовать `partial clone` и `sparse-checkout`, если нужен только кусок большого репозитория
+- писать понятные commit message
+- держать skills короткими, точными и хорошо структурированными
