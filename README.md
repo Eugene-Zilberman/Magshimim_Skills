@@ -2,7 +2,7 @@
 
 > A curated collection of reusable prompts and instruction sets for AI models; focused on coding, writing, and autonomous agents.
 
-![open to contributions](https://img.shields.io/badge/open%20to-contributions-7F77DD) ![LLM-agnostic](https://img.shields.io/badge/LLM-EF4444) ![MIT license](https://img.shields.io/badge/license-MIT-0F6E56)
+![open to contributions](https://img.shields.io/badge/open%20to-contributions-7F77DD) ![LLM agnostic](https://img.shields.io/badge/LLM-agnostic-EF4444) ![MIT license](https://img.shields.io/badge/license-MIT-0F6E56)
 
 ---
 
